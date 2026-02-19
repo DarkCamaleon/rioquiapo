@@ -51,16 +51,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => unsubscribe();
   }, []);
 
-  // Session Timeout Logic
+  // Session Timeout Logic (throttled to avoid excessive timer resets)
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
+    let lastActivity = Date.now();
+    const THROTTLE_MS = 30000; // Only reset timer every 30s max
+    const SESSION_TIMEOUT = 3600000; // 1 hour
 
     const resetTimer = () => {
       if (timeoutId) clearTimeout(timeoutId);
       if (user) {
         timeoutId = setTimeout(async () => {
-          console.log('Session timed out due to inactivity');
-
           await Swal.fire({
             title: 'Sesión expirada',
             text: 'Tu sesión ha expirado por inactividad. Serás redirigido al inicio.',
@@ -72,21 +73,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           });
 
           await auth.signOut();
-        }, 3600000); // 1 hour = 3,600,000 ms
+        }, SESSION_TIMEOUT);
       }
     };
 
     const handleActivity = () => {
-      resetTimer();
+      const now = Date.now();
+      if (now - lastActivity > THROTTLE_MS) {
+        lastActivity = now;
+        resetTimer();
+      }
     };
 
-    // Listen for user activity
     window.addEventListener('mousemove', handleActivity);
     window.addEventListener('keydown', handleActivity);
     window.addEventListener('click', handleActivity);
     window.addEventListener('scroll', handleActivity);
 
-    // Initial timer start
     resetTimer();
 
     return () => {

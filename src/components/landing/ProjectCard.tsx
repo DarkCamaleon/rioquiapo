@@ -47,6 +47,7 @@ const ProjectCard: React.FC<{ project: Project; index?: number }> = ({ project, 
         <img
           src={project.imageUrl}
           alt={project.name}
+          loading="lazy"
           className="w-full h-[350px] sm:h-[450px] object-cover transform transition-transform duration-700 group-hover:scale-110"
         />
         <div className={`absolute top-6 left-6 bg-white/95 backdrop-blur px-4 py-2 rounded-lg shadow-sm`}>

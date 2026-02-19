@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import LandingPage from './components/landing/LandingPage';
 import About from './components/pages/About';
 import Projects from './components/pages/Projects';
@@ -75,6 +75,24 @@ function App() {
             <ProtectedRoute allowedRoles={['user']}>
               <UserDashboard />
             </ProtectedRoute>
+          }
+        />
+
+        {/* 404 Catch-all */}
+        <Route
+          path="*"
+          element={
+            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
+              <span className="material-symbols-outlined text-7xl text-gray-300 mb-4">explore_off</span>
+              <h1 className="text-5xl font-extrabold text-gray-900 mb-2">404</h1>
+              <p className="text-lg text-gray-500 mb-8">La página que buscas no existe.</p>
+              <Link
+                to="/"
+                className="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-red-700 transition-colors shadow-lg"
+              >
+                Volver al Inicio
+              </Link>
+            </div>
           }
         />
       </Routes>

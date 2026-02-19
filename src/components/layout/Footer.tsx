@@ -9,13 +9,9 @@ const Footer: React.FC = () => {
 
           <Logo className="scale-110" />
 
-          <div className="mt-20 pt-8 border-t border-white/5 text-center text-xs text-gray-500 font-medium">
-            <p>© 2024 Rio Quiapo Inmobiliaria. Todos los derechos reservados.</p>
+          <div className="text-center text-xs text-gray-500 font-medium">
+            <p>© {new Date().getFullYear()} Rio Quiapo Inmobiliaria. Todos los derechos reservados.</p>
           </div>
-
-          <nav className="flex flex-wrap justify-center gap-8 md:gap-12">
-
-          </nav>
 
           <div className="flex items-center gap-5">
 
@@ -33,8 +29,6 @@ const Footer: React.FC = () => {
             </a>
           </div>
         </div>
-
-
       </div>
     </footer>
   );

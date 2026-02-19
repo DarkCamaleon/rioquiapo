@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { db } from '../../configs/firebase';
 import { doc, setDoc, collection, writeBatch } from 'firebase/firestore';
 import Swal from 'sweetalert2';
-import { PROJECTS } from '../../configs/constants'; // Fallback backup
-// Using the JSON data user provided earlier manually or from constants if valid
-// Since I can't easily read the JSON file from client side without import,
-// I will hardcode the data from the previous turn's context for reliability.
 
 const BACKUP_PROJECTS = [
   {

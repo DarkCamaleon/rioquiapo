@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import CityCards from './CityCards';
-import { PROJECTS } from '../../configs/constants';
 import { Project } from '../../types';
-import { useAuth } from '../../context/AuthContext';
-import { Link } from 'react-router-dom';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import { db } from '../../configs/firebase';
 
@@ -21,9 +18,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   showCityCards = true,
   showProjectList = true
 }) => {
-  const { role } = useAuth();
-  const isAdmin = role === 'admin';
   const [projects, setProjects] = useState<Project[]>(propProjects || []);
+  const [loading, setLoading] = useState(!propProjects);
 
   useEffect(() => {
     if (propProjects) {
@@ -39,6 +35,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       });
 
       setProjects(fetchedProjects);
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -64,11 +61,32 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               </p>
             </div>
 
-            <div className="space-y-32">
-              {projects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
-              ))}
-            </div>
+            {loading ? (
+              <div className="space-y-32">
+                {[1, 2].map((i) => (
+                  <div key={i} className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 animate-pulse">
+                    <div className="w-full lg:w-3/5 h-[350px] sm:h-[450px] bg-gray-200 rounded-2xl"></div>
+                    <div className="w-full lg:w-2/5 flex flex-col space-y-4">
+                      <div className="w-24 h-4 bg-gray-200 rounded"></div>
+                      <div className="w-48 h-8 bg-gray-200 rounded"></div>
+                      <div className="w-full h-16 bg-gray-200 rounded"></div>
+                      <div className="flex gap-6">
+                        <div className="w-16 h-4 bg-gray-200 rounded"></div>
+                        <div className="w-16 h-4 bg-gray-200 rounded"></div>
+                        <div className="w-16 h-4 bg-gray-200 rounded"></div>
+                      </div>
+                      <div className="w-32 h-10 bg-gray-200 rounded-lg"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-32">
+                {projects.map((project, index) => (
+                  <ProjectCard key={project.id} project={project} index={index} />
+                ))}
+              </div>
+            )}
           </>
         )}
       </div>

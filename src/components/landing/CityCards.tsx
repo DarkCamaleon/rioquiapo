@@ -29,6 +29,7 @@ const CityCardItem: React.FC<{ city: City; isAdmin: boolean; onDelete: (e: React
               src={city.imageUrl}
               alt={city.name}
               onError={() => setImgError(true)}
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
@@ -137,11 +138,25 @@ const CityCards: React.FC = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-        {cities.map((city) => (
-          <CityCardItem key={city.id} city={city} isAdmin={isAdmin} onDelete={handleDelete} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-64 rounded-2xl overflow-hidden bg-gray-200 animate-pulse">
+              <div className="h-full w-full flex flex-col items-center justify-center gap-3">
+                <div className="w-32 h-6 bg-gray-300 rounded"></div>
+                <div className="w-24 h-4 bg-gray-300 rounded"></div>
+                <div className="w-12 h-1 bg-gray-300 rounded-full mt-2"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+          {cities.map((city) => (
+            <CityCardItem key={city.id} city={city} isAdmin={isAdmin} onDelete={handleDelete} />
+          ))}
+        </div>
+      )}
     </>
   );
 };
