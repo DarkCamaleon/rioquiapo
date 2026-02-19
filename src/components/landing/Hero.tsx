@@ -5,10 +5,10 @@ const Hero: React.FC = () => {
   return (
     <section className="relative h-[650px] sm:h-[750px] w-full flex items-center overflow-hidden pt-20">
       {/* Background Image */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{
-          backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuCS929R5QpjaBHisxUt7nI6gfEaIPm8QzJbrjw1XEUZ2_LF6apJ1RKmLiI_rpgwG5_HTYY8zTfjm68h6ge0mGNA2QkmaSGUM6LMI9PVjZaRMxLGTn34qDZVe5s07on_UIxz4tgsoXxJF3fkRuwfi6GtCQsbdYHkSDu3ynxFKCqH-OEuWFRifT4fYwscX58CMBdN3f5mBEJn0JtWtd6aoDyZLTxeiANV3jaPhIKOw2pQjm4IVESBgCSamByZFWOuyCxeE9b_fPct2sR9')`
+          backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuCS929R5QpjaBHisxUt7nI6gfEaIPm8QzJbrjw1XEUZ2_LF6apJ1RKmLiI_rpgwG5_HTYY8zTfjm68h6ge0mGNA2QkmaSGUM6LMI9PVjZaRMxLGTn34qDZVe5s07on_UIxz4tgsoXxJF3fkRuwfi6GtCQsbdYHkSDu3ynxFKCqH-OEuWFRifT4fYwscX58CMBdN3f5mBEJn0JtWtd6aoDyZLTxeiANV3jaPhIKOw2pCjm4IVESBgCSamByZFWOuyCxeE9b_fPct2sR9')`
         }}
       >
         <div className="absolute inset-0 bg-black/40 z-10"></div>

@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Función auxiliar para verificar si el usuario es administrador
+    // Asume que la colección 'users' tiene documentos con el campo 'role'
+    function isAdmin() {
+      return request.auth != null &&
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Reglas para la colección 'projects'
+    match /projects/{project} {
+      allow read: if true; // Cualquiera puede ver los proyectos
+      allow create, update, delete: if isAdmin(); // Solo admins pueden modificar
+
+      // Subcolección 'models' dentro de cada proyecto
+      match /models/{model} {
+        allow read: if true; // Cualquiera puede ver los modelos
+        allow create, update, delete: if isAdmin(); // Solo admins pueden modificar
+      }
+    }
+
+    // Reglas para la colección 'cities' (Zonas)
+    match /cities/{city} {
+      allow read: if true; // Cualquiera puede ver las zonas
+      allow create, update, delete: if isAdmin(); // Solo admins pueden modificar
+    }
+
+    // Reglas para la colección 'users'
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if isAdmin();
+    }
+
+    // Reglas para la colección 'usernames' (Login lookup)
+    match /usernames/{username} {
+      allow read: if true; // Necesario para el login
+      allow create, update, delete: if isAdmin();
+    }
+  }
+}

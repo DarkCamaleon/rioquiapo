@@ -9,14 +9,16 @@ const Footer: React.FC = () => {
 
           <Logo className="scale-110" />
 
+          <div className="mt-20 pt-8 border-t border-white/5 text-center text-xs text-gray-500 font-medium">
+            <p>© 2024 Rio Quiapo Inmobiliaria. Todos los derechos reservados.</p>
+          </div>
+
           <nav className="flex flex-wrap justify-center gap-8 md:gap-12">
-            <a href="#proyectos" className="text-sm font-semibold text-gray-400 hover:text-white transition-colors">Proyectos</a>
-            <a href="#nosotros" className="text-sm font-semibold text-gray-400 hover:text-white transition-colors">Nosotros</a>
-            <a href="#inversionistas" className="text-sm font-semibold text-gray-400 hover:text-white transition-colors">Inversionistas</a>
-            <a href="#privacidad" className="text-sm font-semibold text-gray-400 hover:text-white transition-colors">Políticas de Privacidad</a>
+
           </nav>
 
           <div className="flex items-center gap-5">
+
             <a href="https://www.facebook.com/rioquiapo/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-gray-400 hover:text-white">
               <span className="sr-only">Facebook</span>
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99h-2.54V12h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" /></svg>
@@ -32,9 +34,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-white/5 text-center text-xs text-gray-500 font-medium">
-          <p>© 2024 Rio Quiapo Inmobiliaria. Todos los derechos reservados.</p>
-        </div>
+
       </div>
     </footer>
   );

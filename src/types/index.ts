@@ -10,6 +10,8 @@ export interface Project {
   status: 'En Venta' | 'Entrega Inmediata' | 'En Verde';
   imageUrl: string;
   reverse?: boolean;
+  cityId?: string;
+  mapUrl?: string;
 }
 
 export interface NavItem {

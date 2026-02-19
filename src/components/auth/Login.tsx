@@ -15,32 +15,41 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Attempting login...');
+    console.log('Firebase Config Project ID:', auth.app.options.projectId);
     setLoading(true);
 
     try {
-      // 1. Get user email from usernames collection (Secure Lookup)
-      const userDocRef = doc(db, 'usernames', username);
-      const userDocSnap = await getDoc(userDocRef);
+      let email = '';
 
-      if (!userDocSnap.exists()) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Usuario no encontrado',
-          text: 'El nombre de usuario ingresado no existe.',
-          confirmButtonColor: '#f20d0d',
-        });
-        setLoading(false);
-        return;
+      // Check if input is an email
+      if (username.includes('@')) {
+        email = username;
+      } else {
+        // 1. Get user email from usernames collection (Secure Lookup)
+        const userDocRef = doc(db, 'usernames', username);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (!userDocSnap.exists()) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Usuario no encontrado',
+            text: 'El nombre de usuario ingresado no existe.',
+            confirmButtonColor: '#f20d0d',
+          });
+          setLoading(false);
+          return;
+        }
+
+        const userData = userDocSnap.data();
+        email = userData.email;
       }
-
-      const userData = userDocSnap.data();
-      const email = userData.email;
 
       if (!email) {
         Swal.fire({
           icon: 'error',
           title: 'Configuración inválida',
-          text: 'Este usuario no tiene un correo asignado.',
+          text: 'No se pudo obtener el correo del usuario.',
           confirmButtonColor: '#f20d0d',
         });
         setLoading(false);

@@ -1,10 +1,11 @@
 
-import { Project, NavItem } from './types';
+import { Project, NavItem } from '../types';
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'Proyectos', href: '#proyectos' },
-  { label: 'Nosotros', href: '#nosotros' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Inicio', href: '/' },
+  { label: 'Proyectos', href: '/proyectos' },
+  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Contacto', href: '/contacto' },
 ];
 
 export const PROJECTS: Project[] = [
